@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Targetter : MonoBehaviour
 {
-    [SerializeField] private Player_InventoryManager _manager;
+    [SerializeField] private InventoryManager _manager;
 
     private Camera _cam;
 
@@ -12,18 +12,11 @@ public class Player_Targetter : MonoBehaviour
     [SerializeField] private GameObject _passText;
 
     [SerializeField] private float _pickupDistance = 5.0f;
-    [SerializeField] private float _passDistance = 10.0f;
-
     [SerializeField] private float _pickupTime = 5.0f;
+    [SerializeField] private float _passDistance = 10.0f;
     [SerializeField] private float _passTime = 1.0f;
-    private float _currentButtonHold;
 
-    enum KeyPressed
-    {
-        main,
-        off,
-        none
-    }
+    private float _currentButtonHold;
 
     private void Awake()
     {
@@ -45,23 +38,28 @@ public class Player_Targetter : MonoBehaviour
 
             if (distance > _passDistance) return;
 
-            if (hit.transform.tag == "Object" && distance <= _pickupDistance)
-            {
-                _passText.SetActive(false);
-                _pickupText.SetActive(true);
-
-                _pickupText.transform.position = Vector3.Lerp(hit.point, _cam.transform.position, 0.1f);
-
-                if(ClickPrimaryInteract)
-            }
-            else if (hit.transform.tag == "Player" && distance <= _passDistance)
+            if (hit.transform.tag == "Player" && distance <= _passDistance)
             {
                 _pickupText.SetActive(false);
                 _passText.SetActive(true);
 
                 _passText.transform.position = Vector3.Lerp(hit.point, _cam.transform.position, 0.1f);
 
-                HandlePass(hit.transform, hit.transform.InverseTransformPoint(hit.point));
+                //if()
+            }
+            else if (hit.transform.tag == "Object" && distance <= _pickupDistance)
+            {
+                var otherItem = hit.transform.GetComponent<ItemStateControl>();
+                
+                _passText.SetActive(false);
+                _pickupText.SetActive(true);
+
+                _pickupText.transform.position = Vector3.Lerp(hit.point, _cam.transform.position, 0.1f);
+
+                if (ClickMainHandInteract(_pickupTime))
+                {
+                    //_manager.PickupItem(otherItem, )
+                }
             }
             else
             {
@@ -73,7 +71,7 @@ public class Player_Targetter : MonoBehaviour
         }
     }
 
-    bool ClickPrimaryInteract(float targetTime)
+    bool ClickMainHandInteract(float targetTime)
     {
         while (Input.GetKeyDown(KeyCode.Q))
         {

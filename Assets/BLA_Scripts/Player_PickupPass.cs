@@ -99,23 +99,23 @@ public class Player_PickupPass : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && _inventory.IsRightOccupied)
         {
-            StartCoroutine(TransferObject(otherInventory, true, isRightSide));
+            //StartCoroutine(TransferObject(otherInventory, true, isRightSide));
         }
         else if (Input.GetKeyDown(KeyCode.Q) && _inventory.IsLeftOccupied)
         {
-            StartCoroutine(TransferObject(otherInventory, false, isRightSide));
+            //StartCoroutine(TransferObject(otherInventory, false, isRightSide));
         }
     }
 
-    IEnumerator TransferObject(OLDPlayer_Inventory otherInventory, bool fromRightHand, bool toRightHand)
+    /*IEnumerator TransferObject(OLDPlayer_Inventory otherInventory, bool fromRightHand, bool toRightHand)
     {
         Transform objectToPass = fromRightHand ? _inventory.RightHand : _inventory.LeftHand;
 
         _inventory.RemoveInventory(objectToPass == _inventory.RightHand);
 
-        yield return StartCoroutine(objectToPass.GetComponent<Item_Passing>().PassItem(otherInventory.transform, 0));
+        //yield return StartCoroutine(objectToPass.GetComponent<Item_Passing>().PassItem(otherInventory.transform, 0));
         
         otherInventory.OccupyInventory(objectToPass, toRightHand);
-    }
+    }*/
 
 }

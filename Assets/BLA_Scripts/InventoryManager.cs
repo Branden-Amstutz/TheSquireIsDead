@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
-    public void PickupItem(Item_StateControl item, InventorySlot inventorySlot)
+    public void PickupItem(ItemStateControl item, InventorySlot inventorySlot)
     {
         if(inventorySlot.State != InventorySlot.InventoryState.empty)
         {
             Debug.LogError("ERROR: INVENTORY OCCUPIED");
             return;
         }
-        if(item.State != Item_StateControl.ItemState.floor)
+        if(item.State != ItemStateControl.ItemState.floor)
         {
             Debug.LogError("ERROR: ITEM NOT ON GROUND");
         }
@@ -21,7 +21,7 @@ public class Player_InventoryManager : MonoBehaviour
 
     }
 
-    public void DropItem(Item_StateControl item, InventorySlot inventorySlot)
+    public void DropItem(ItemStateControl item, InventorySlot inventorySlot)
     {
         if (inventorySlot.State != InventorySlot.InventoryState.ocuppied)
         {
@@ -32,6 +32,7 @@ public class Player_InventoryManager : MonoBehaviour
         item.SetFloor();
         inventorySlot.RemoveItem();
     }
+
 
     public IEnumerator PassItem(InventorySlot passer, InventorySlot reciever)
     {
@@ -46,10 +47,9 @@ public class Player_InventoryManager : MonoBehaviour
             yield break;
         }
 
-        Item_StateControl item = passer.Item.GetComponent<Item_StateControl>();
+        ItemStateControl item = passer.EquippedItem.GetComponent<ItemStateControl>();
         
         passer.RemoveItem();
-        passer.AddItem(item.transform);
 
         item.SetPassing();
 

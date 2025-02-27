@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Item_StateControl : MonoBehaviour
+public class ItemStateControl : MonoBehaviour
 {
     private Rigidbody _rb;
     private Collider _col;

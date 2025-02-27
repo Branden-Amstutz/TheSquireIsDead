@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Transform Item  { get; private set; }
+    public Transform EquippedItem  { get; private set; }
     public enum InventoryState 
     {
         empty,
@@ -17,9 +17,9 @@ public class InventorySlot : MonoBehaviour
 
     public void AddItem(Transform newItem)
     {
-        if(Item == null)
+        if(EquippedItem == null)
         {
-            Item = newItem;
+            EquippedItem = newItem;
             State = InventoryState.ocuppied;
         }
         else
@@ -29,9 +29,9 @@ public class InventorySlot : MonoBehaviour
     }
     public void RemoveItem()
     {
-        if(Item != null)
+        if(EquippedItem != null)
         {
-            Item = null;
+            EquippedItem = null;
             State = InventoryState.empty;
         }
         else
